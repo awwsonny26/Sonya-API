@@ -55,7 +55,7 @@ The app can be easily deployed to **Render**:
 2. Create a new **Web Service** on [render.com](https://render.com).  
 3. Connect the GitHub repo — Render will detect the Dockerfile automatically.  
 4. Once deployed, visit:
-   [https://sonya-api.onrender.com/healthcheck](https://sonya-api.onrender.com)
+   [https://sonya-api.onrender.com/healthcheck](https://sonya-api.onrender.com/healthcheck)
 
 ## ✅ Example Response
 ```json
