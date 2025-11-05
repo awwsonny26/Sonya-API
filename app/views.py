@@ -89,3 +89,42 @@ def delete_user(user_id: int):
 @app.get("/users")
 def list_users():
     return jsonify(list(users.values())), 200
+
+
+@app.get("/category")
+def list_categories():
+    return jsonify(list(categories.values())), 200
+
+
+@app.post("/category")
+def create_category():
+    data = request.get_json(silent=True) or {}
+    title = data.get("title")
+    if not title:
+        return problem(400, "Bad Request", "Field 'title' is required.")
+    cid = _next("category")
+    categories[cid] = {"id": cid, "title": title}
+    return jsonify(categories[cid]), 201
+
+
+@app.delete("/category")
+def delete_category():
+    cid = request.args.get("id", type=int)
+    if cid is None:
+        body = request.get_json(silent=True) or {}
+        cid = body.get("id")
+        try:
+            cid = int(cid) if cid is not None else None
+        except Exception:
+            cid = None
+    if cid is None:
+        return problem(
+            400, "Bad Request", "Query param 'id' (or JSON field 'id') is required."
+        )
+    if cid not in categories:
+        return problem(404, "Not Found", f"Category {cid} not found.")
+    to_delete = [rid for rid, r in records.items() if r["category_id"] == cid]
+    for rid in to_delete:
+        records.pop(rid, None)
+    categories.pop(cid, None)
+    return ("", 204)
