@@ -128,3 +128,65 @@ def delete_category():
         records.pop(rid, None)
     categories.pop(cid, None)
     return ("", 204)
+
+
+@app.post("/record")
+def create_record():
+    data: Dict[str, Any] = request.get_json(silent=True) or {}
+    try:
+        user_id = _parse_int_field(data, "user_id")
+        category_id = _parse_int_field(data, "category_id")
+        amount = _parse_float_field(data, "amount")
+    except ValueError as e:
+        return problem(400, "Bad Request", str(e))
+
+    if user_id not in users:
+        return problem(400, "Bad Request", f"user_id {user_id} does not exist.")
+    if category_id not in categories:
+        return problem(400, "Bad Request", f"category_id {category_id} does not exist.")
+
+    created_at = str(data.get("created_at") or _iso_now())
+    rid = _next("record")
+    record = {
+        "id": rid,
+        "user_id": user_id,
+        "category_id": category_id,
+        "amount": amount,
+        "created_at": created_at,
+    }
+    records[rid] = record
+    return jsonify(record), 201
+
+
+@app.get("/record/<int:record_id>")
+def get_record(record_id: int):
+    rec = records.get(record_id)
+    if not rec:
+        return problem(404, "Not Found", f"Record {record_id} not found.")
+    return jsonify(rec), 200
+
+
+@app.delete("/record/<int:record_id>")
+def delete_record(record_id: int):
+    if record_id not in records:
+        return problem(404, "Not Found", f"Record {record_id} not found.")
+    records.pop(record_id, None)
+    return ("", 204)
+
+
+@app.get("/record")
+def list_records():
+    user_id = request.args.get("user_id", type=int)
+    category_id = request.args.get("category_id", type=int)
+    if user_id is None and category_id is None:
+        return problem(
+            400,
+            "Bad Request",
+            "Provide at least one filter: user_id and/or category_id.",
+        )
+    items = list(records.values())
+    if user_id is not None:
+        items = [r for r in items if r["user_id"] == user_id]
+    if category_id is not None:
+        items = [r for r in items if r["category_id"] == category_id]
+    return jsonify(items), 200
