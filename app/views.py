@@ -54,3 +54,38 @@ def problem(status: int, title: str, detail: str = ""):
 @app.get("/healthcheck")
 def healthcheck():
     return jsonify({"status": "ok", "date": _iso_now()}), 200
+
+
+@app.post("/user")
+def create_user():
+    data = request.get_json(silent=True) or {}
+    name = data.get("name")
+    if not name:
+        return problem(400, "Bad Request", "Field 'name' is required.")
+    uid = _next("user")
+    users[uid] = {"id": uid, "name": name}
+    return jsonify(users[uid]), 201
+
+
+@app.get("/user/<int:user_id>")
+def get_user(user_id: int):
+    u = users.get(user_id)
+    if not u:
+        return problem(404, "Not Found", f"User {user_id} not found.")
+    return jsonify(u), 200
+
+
+@app.delete("/user/<int:user_id>")
+def delete_user(user_id: int):
+    if user_id not in users:
+        return problem(404, "Not Found", f"User {user_id} not found.")
+    to_delete = [rid for rid, r in records.items() if r["user_id"] == user_id]
+    for rid in to_delete:
+        records.pop(rid, None)
+    users.pop(user_id, None)
+    return ("", 204)
+
+
+@app.get("/users")
+def list_users():
+    return jsonify(list(users.values())), 200
