@@ -1,0 +1,155 @@
+{
+  "info": {
+    "_postman_id": "b62f6717-6a1f-42cc-b601-c0cf52ba82dc",
+    "name": "Sonya API - Lab2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Healthcheck",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/healthcheck"
+      }
+    },
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Alice\"}"
+        },
+        "url": "{{baseUrl}}/user"
+      }
+    },
+    {
+      "name": "Get Users",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/users"
+      }
+    },
+    {
+      "name": "Get User by ID",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/user/{{userId}}"
+      }
+    },
+    {
+      "name": "Delete User",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/user/{{userId}}"
+      }
+    },
+    {
+      "name": "Create Category",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Food\"}"
+        },
+        "url": "{{baseUrl}}/category"
+      }
+    },
+    {
+      "name": "List Categories",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/category"
+      }
+    },
+    {
+      "name": "Delete Category",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/category?id={{categoryId}}"
+      }
+    },
+    {
+      "name": "Create Record",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"user_id\": 1, \"category_id\": 1, \"amount\": 99.5}"
+        },
+        "url": "{{baseUrl}}/record"
+      }
+    },
+    {
+      "name": "Get Record",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/record/{{recordId}}"
+      }
+    },
+    {
+      "name": "Delete Record",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/record/{{recordId}}"
+      }
+    },
+    {
+      "name": "Filter Records by user",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/record?user_id={{userId}}"
+      }
+    },
+    {
+      "name": "Filter Records by category",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/record?category_id={{categoryId}}"
+      }
+    },
+    {
+      "name": "Filter Records by both",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/record?user_id={{userId}}&category_id={{categoryId}}"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "{{baseUrl}}"
+    },
+    {
+      "key": "userId",
+      "value": "1"
+    },
+    {
+      "key": "categoryId",
+      "value": "1"
+    },
+    {
+      "key": "recordId",
+      "value": "1"
+    }
+  ]
+}

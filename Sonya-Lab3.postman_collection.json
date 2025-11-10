@@ -1,0 +1,154 @@
+{
+  "info": {
+    "_postman_id": "f8c2c6a2-7d56-44f8-8b31-011c504ec7a8",
+    "name": "Sonya API - Lab3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Alice\"}"
+        },
+        "url": "{{baseUrl}}/user"
+      }
+    },
+    {
+      "name": "Get All Users",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/user"
+      }
+    },
+    {
+      "name": "Get User by ID",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/user/{{userId}}"
+      }
+    },
+    {
+      "name": "Delete User",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/user/{{userId}}"
+      }
+    },
+    {
+      "name": "Create Global Category",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Food\", \"is_global\": true}"
+        },
+        "url": "{{baseUrl}}/category"
+      }
+    },
+    {
+      "name": "Create User Category",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Taxi\", \"owner_id\": {{userId}}}"
+        },
+        "url": "{{baseUrl}}/category"
+      }
+    },
+    {
+      "name": "Get Categories (all/global + user)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/category?user_id={{userId}}"
+      }
+    },
+    {
+      "name": "Delete User Category",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/category/{{categoryId}}?user_id={{userId}}"
+      }
+    },
+    {
+      "name": "Create Record",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"user_id\": {{userId}}, \"category_id\": {{categoryId}}, \"amount\": 150.5}"
+        },
+        "url": "{{baseUrl}}/record"
+      }
+    },
+    {
+      "name": "Get Records by User",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/record?user_id={{userId}}"
+      }
+    },
+    {
+      "name": "Get Records by Category",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/record?category_id={{categoryId}}"
+      }
+    },
+    {
+      "name": "Get Records by User and Category",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/record?user_id={{userId}}&category_id={{categoryId}}"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "userId",
+      "value": "1"
+    },
+    {
+      "key": "categoryId",
+      "value": "1"
+    }
+  ]
+}
