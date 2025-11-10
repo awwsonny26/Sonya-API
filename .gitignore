@@ -1,29 +1,5 @@
-env/
-venv/
-
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.pyc
-
-.vscode/
-.idea/
-
-.DS_Store
-
-*.log
-*.tmp
-
-*.pid
-*.tar
-
+node_modules
+# Keep environment variables out of version control
 .env
-.env.*
 
-.mypy_cache/
-.pytest_cache/
-.coverage
-
-/build/
-dist/
+/src/generated/prisma

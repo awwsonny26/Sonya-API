@@ -1,10 +1,15 @@
-FROM python:3.11-slim
+FROM node:20
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN python -m pip install --no-cache-dir -r requirements.txt
+COPY package*.json ./
+COPY prisma ./prisma
 
-COPY . /app
+RUN npm install
+RUN npx prisma generate
 
-CMD flask --app app run -h 0.0.0.0 -p $PORT
+COPY . .
+
+ENV PORT=8080
+
+CMD sh -c "npx prisma migrate deploy && node src/server.js"
