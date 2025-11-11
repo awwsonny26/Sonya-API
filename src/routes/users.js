@@ -2,7 +2,7 @@ import express from 'express';
 import { prisma } from '../prisma.js';
 import { userSchema } from '../validation.js';
 
-export const usersRouter = express.Router();
+const usersRouter = express.Router();
 
 usersRouter.post('/', async (req, res, next) => {
   try {
@@ -47,3 +47,5 @@ usersRouter.delete('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+export default usersRouter;

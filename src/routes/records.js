@@ -2,7 +2,7 @@ import express from 'express';
 import { prisma } from '../prisma.js';
 import { recordSchema } from '../validation.js';
 
-export const recordsRouter = express.Router();
+const recordsRouter = express.Router();
 
 recordsRouter.post('/', async (req, res, next) => {
   try {
@@ -37,3 +37,5 @@ recordsRouter.delete('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+export default recordsRouter;

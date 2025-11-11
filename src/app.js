@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { authRequired } from './middlewares/auth.js'
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter from './routes/auth.js'
 import usersRouter from './routes/users.js';

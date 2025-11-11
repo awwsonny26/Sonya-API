@@ -2,7 +2,7 @@ import express from 'express';
 import { prisma } from '../prisma.js';
 import { categorySchema } from '../validation.js';
 
-export const categoriesRouter = express.Router();
+const categoriesRouter = express.Router();
 
 categoriesRouter.post('/', async (req, res, next) => {
   try {
@@ -35,3 +35,5 @@ categoriesRouter.delete('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+export default categoriesRouter;
