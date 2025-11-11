@@ -47,7 +47,8 @@ It implements a minimal web service with endpoints for managing **Users**, **Cat
    Expected response:
    ```json
    {
-     "status": "ok"
+       "status": "ok",
+       "date": "2025-11-10T17:17:03.703Z"
    }
    ```
 
@@ -75,7 +76,8 @@ The app can be easily deployed to **Render** or any Docker-compatible hosting se
 ## ✅ Example Response
 ```json
 {
-  "status": "ok"
+    "status": "ok",
+    "date": "2025-11-10T17:17:03.703Z"
 }
 ```
 
@@ -173,3 +175,39 @@ The app is ready for Docker-based deployment (e.g., Render, Railway, Fly.io).
 ---
 
 > **Lab 3:** Node.js Implementation — Variant 2 (User-defined categories)
+
+## 📘 Lab 4 — Authentication (JWT)
+
+### **Goal**
+
+Implement authentication using JSON Web Tokens (JWT).
+Protect all existing endpoints so only authenticated users (who provide a valid token) can access them.
+
+### **Tasks**
+
+* Add registration and login endpoints.
+* Secure all other routes using an authentication middleware that checks the provided JWT.
+* Update Postman flow to include:
+
+  1. Register → receive confirmation.
+  2. Login → receive JWT token.
+  3. Use that token to access protected endpoints.
+* Test all flows in Postman to confirm that:
+
+  * Invalid or expired tokens return 401 with proper error messages.
+  * Authorized requests work correctly.
+
+### **Implementation Notes**
+
+* Added `/auth/register` and `/auth/login` routes.
+* Used `jsonwebtoken` for signing and verifying tokens.
+* Passwords are hashed and verified securely.
+* Introduced middleware `authRequired` to protect sensitive routes (`/user`, `/category`, `/record`).
+* Added proper error handling for invalid, missing, and expired tokens.
+* Updated Postman collection to include authentication steps.
+
+### **Expected Result**
+
+* Successful registration and login produce a valid JWT token.
+* All other endpoints reject unauthorized access.
+* Postman Flow shows a full auth cycle (register → login → access protected route).
